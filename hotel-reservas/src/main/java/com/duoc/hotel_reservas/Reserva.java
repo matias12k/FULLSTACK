@@ -4,17 +4,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 /**
  * Clase que representa la entidad de Reserva mapeada a Oracle Cloud.
  */
 @Entity
-@Table(name = "RESERVAS") // Nombre exacto de la tabla en tu DB
+@Table(name = "RESERVAS")
 public class Reserva {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Permite que Oracle asigne el ID automáticamente
     @Column(name = "ID")
-    private int id;
+    private Integer id; // Cambiado de int a Integer para mejor compatibilidad con JPA
 
     @Column(name = "HUESPED")
     private String huesped;
@@ -25,12 +28,12 @@ public class Reserva {
     @Column(name = "ACTIVA")
     private boolean activa;
 
-    // IMPORTANTE: Constructor vacío obligatorio para que JPA funcione
+    // Constructor vacío obligatorio
     public Reserva() {
     }
 
-    // Constructor con parámetros (lo mantenemos para tu lógica)
-    public Reserva(int id, String huesped, String fecha, boolean activa) {
+    // Constructor con parámetros actualizado
+    public Reserva(Integer id, String huesped, String fecha, boolean activa) {
         this.id = id;
         this.huesped = huesped;
         this.fecha = fecha;
@@ -38,13 +41,13 @@ public class Reserva {
     }
 
     // Getters
-    public int getId() { return id; }
+    public Integer getId() { return id; }
     public String getHuesped() { return huesped; }
     public String getFecha() { return fecha; }
     public boolean isActiva() { return activa; }
 
-    // Setters (Agregamos el resto para que Spring pueda llenar el objeto desde el JSON de Postman)
-    public void setId(int id) { this.id = id; }
+    // Setters
+    public void setId(Integer id) { this.id = id; }
     public void setHuesped(String huesped) { this.huesped = huesped; }
     public void setFecha(String fecha) { this.fecha = fecha; }
     public void setActiva(boolean activa) { this.activa = activa; }
